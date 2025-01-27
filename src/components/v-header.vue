@@ -25,7 +25,12 @@
             <router-link to="/">Новости</router-link>
           </li>
         </ul>
-        <button v-if="this.mmStore.authIs == ''">Войти</button>
+        <button
+          v-if="this.mmStore.authIs == ''"
+          @click="this.mmStore.openModal('auth', true)"
+        >
+          Войти
+        </button>
         <button v-else>Выйти</button>
       </nav>
     </div>

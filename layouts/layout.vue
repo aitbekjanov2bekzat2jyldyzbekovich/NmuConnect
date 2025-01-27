@@ -1,15 +1,18 @@
 <template>
-  <Vheader></Vheader>
+  <ModalWindow />
+  <Vheader />
   <div>
     <slot />
   </div>
 </template>
 
 <script>
-import Vheader from "@/components/v-header.vue"
+import ModalWindow from "@/components/modalWindow.vue";
+import Vheader from "@/components/v-header.vue";
 export default {
   components: {
-    Vheader
-  }
+    Vheader,
+    ModalWindow,
+  },
 };
 </script>
