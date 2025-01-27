@@ -36,22 +36,30 @@ export const useMmStore = defineStore("mm", {
         try {
           const respoonse = await fetch(url);
           const ress = await respoonse.json();
-          if (ress.length) {
+          if (ress) {
             const r = Object.values(ress);
             localStorage.user = r[0].token;
-            location.reload();
+            this.sendMessage("Вы вошли в систему", "запрос успешно выполнено");
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
           } else {
-            this.sendMessage("Не правмль", "error");
+            this.inputAuthPassword = "";
+            this.sendMessage("Неправильный пароль", "Ошибка");
           }
-        } catch {}
+        } catch {
+          this.sendMessage("Неправильный пароль", "Ошибка");
+          this.inputAuthPassword = "";
+        }
       } else {
-        this.sendMessage("Не правмль", "error");
+        this.inputAuthPassword = "";
+        this.sendMessage("Введите пароль", "Ошибка");
       }
     },
 
     sendMessage(message, type) {
       this.appMessage.push({
-        id: this.appMessage.length,
+        id: this.appMessage.length + 1,
         message: message,
         type: type,
       });
@@ -59,9 +67,10 @@ export const useMmStore = defineStore("mm", {
 
       setTimeout(() => {
         this.appMessage.forEach((i) => {
-         
+          this.appMessage.pop();
         });
-      }, 1000);
+        console.log(this.appMessage);
+      }, 2000);
     },
   },
 });
